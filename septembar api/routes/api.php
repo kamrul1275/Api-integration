@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+Route::get('/show/user/{id?}',[HomeController::class,'showUser'])->name('All.User');
 
-Route::get('/User-show/{id?}', [UserController::class ,'ShowUser']);
+Route::post('/add/user',[HomeController::class,'AddUser'])->name('add.User');
 
-Route::post('/User-Add', [UserController::class ,'AddUser']);
+Route::get('/edit/{id}',[HomeController::class,'EditUser'])->name('edit.User');
 
 
-Route::delete('/User/delete/{id}', [UserController::class ,'DeleteUser']);
+Route::get('/delete/{id}',[HomeController::class,'DeleteUser'])->name('delete.User');

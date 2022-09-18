@@ -1,0 +1,95 @@
+
+
+*****Route part........******
+
+
+Route::post('/User-Add', [UserController::class ,'AddUser']);
+
+
+Route::get('/User-show/{id?}', [UserController::class, 'showUser']);
+
+Route::delete('/User/delete/{id}', [UserController::class ,'DeleteUser']);
+
+
+
+
+******Inside UserController :********..............
+
+## include model.....
+
+
+use App\Models\User;
+
+
+
+ function AddUser( Request $request)
+    {
+
+
+if(  $request->isMethod='post'){
+    $data = $request->all();
+
+
+
+// return  $data;
+
+
+
+$UsersAdd = new User();
+
+$UsersAdd ->name = $data['name'];
+$UsersAdd ->email = $data['email'];
+$UsersAdd ->password = bcrypt($data['password']);
+
+$UsersAdd ->save();
+
+$Message = 'User Added Succesfully';
+
+return response()->json(['Message'=>$Message],201);
+
+}
+
+
+   }
+
+
+
+
+    public function showUser($id=null)
+    {
+
+if($id==''){
+
+$Show= User::all();
+
+return response()->json(['success'=>$Show],200);
+
+}else{
+
+    $Show= User::find($id);
+
+    return response()->json(['success'=>$Show],200);
+
+
+
+}
+
+    }
+
+
+
+    function DeleteUser( $id = null)
+    {
+
+
+$userDelete = User::find($id);
+$userDelete->delete();
+
+$Message = 'User delete Succesfully';
+
+return response()->json(['Message'=>$Message],201);
+
+
+
+    }
+

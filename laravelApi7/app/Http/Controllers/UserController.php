@@ -35,7 +35,7 @@ class UserController extends Controller
       public function ShowUser($id = null)
       {
 
-  if($id==''){
+  if($id ==''){
 
       $Userss =User::all();
 
@@ -44,7 +44,7 @@ class UserController extends Controller
 
 
 
-      $Userss =User::all();
+      $Userss =User::find($id);
 
       return response()->json(['Userss'=>$Userss],200);
   }
